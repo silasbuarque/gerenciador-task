@@ -3,9 +3,8 @@ package com.silasbuarue.gerenciadortarefas.controller;
 import com.silasbuarue.gerenciadortarefas.model.entities.Task;
 import com.silasbuarue.gerenciadortarefas.model.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TaskController {
@@ -14,8 +13,13 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping("/save")
-    public void saveTask(@RequestBody Task task){
-        taskService.saveTask(task);
+    public ResponseEntity<Void> saveTask(@RequestBody Task task){
+        return taskService.saveTask(task);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
+        return taskService.deleteTask(id);
     }
 
 }
