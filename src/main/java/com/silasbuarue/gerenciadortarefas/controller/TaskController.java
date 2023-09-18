@@ -30,7 +30,7 @@ public class TaskController {
         return taskService.findAll();
     }
 
-    @GetMapping("task/find-all/{id}")
+    @GetMapping("task/find/{id}")
     public Optional<Task> findById(@PathVariable Long id){
         return taskService.findById(id);
     }
