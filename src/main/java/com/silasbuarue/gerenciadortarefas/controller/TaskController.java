@@ -6,20 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/save")
+    @PostMapping("task/save")
     public ResponseEntity<Void> saveTask(@RequestBody Task task){
         return taskService.saveTask(task);
     }
 
-    @DeleteMapping
+    @DeleteMapping("task/delete/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id){
         return taskService.deleteTask(id);
+    }
+
+    @GetMapping("task/find-all")
+    public List<Task> findAll(){
+        return taskService.findAll();
     }
 
 }
