@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -34,5 +33,12 @@ public class TaskService {
     public List<Task> findAll() {
         List<Task> items = taskRepository.findAll();
         return new ResponseEntity<>(items, HttpStatus.OK).getBody();
+    }
+
+    public Optional<Task> findById(Long id) {
+
+        Optional<Task> returnTask = taskRepository.findById(id);
+
+        return new ResponseEntity<>(returnTask, HttpStatus.OK).getBody();
     }
 }
