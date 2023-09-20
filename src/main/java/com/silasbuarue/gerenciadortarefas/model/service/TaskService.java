@@ -17,28 +17,57 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public ResponseEntity<Void> saveTask(Task task){
+
         taskRepository.save(task);
         return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     public ResponseEntity<Void> deleteTask(Long id) {
+
         if(!taskRepository.existsById(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         taskRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
     public List<Task> findAll() {
+
         List<Task> items = taskRepository.findAll();
         return new ResponseEntity<>(items, HttpStatus.OK).getBody();
+
     }
 
     public Optional<Task> findById(Long id) {
 
         Optional<Task> returnTask = taskRepository.findById(id);
-
         return new ResponseEntity<>(returnTask, HttpStatus.OK).getBody();
+
     }
+
+    public ResponseEntity<Task> updateTask(Long id, Task task) {
+
+        if(!taskRepository.existsById(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Task existingTask = taskRepository.findById(id).orElse(null);
+
+        if (existingTask == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        existingTask.setDate(task.getDate());
+        existingTask.setTitle(task.getTitle());
+        existingTask.setStatus(task.getStatus());
+        existingTask.setDescription(task.getDescription());
+
+        taskRepository.save(existingTask);
+        
+        return new ResponseEntity<>(existingTask, HttpStatus.OK);
+    }
+
 }
