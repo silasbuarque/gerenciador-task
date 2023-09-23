@@ -15,22 +15,22 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("task/save")
+    @PostMapping("/task/save")
     public ResponseEntity<Void> saveTask(@RequestBody Task task){
         return taskService.saveTask(task);
     }
 
-    @DeleteMapping("task/delete/{id}")
+    @DeleteMapping("/task/delete/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id){
         return taskService.deleteTask(id);
     }
 
-    @GetMapping("task/find-all")
+    @GetMapping("/task/find-all")
     public List<Task> findAll(){
         return taskService.findAll();
     }
 
-    @GetMapping("task/find/{id}")
+    @GetMapping("/task/find/{id}")
     public Optional<Task> findById(@PathVariable Long id){
         return taskService.findById(id);
     }
